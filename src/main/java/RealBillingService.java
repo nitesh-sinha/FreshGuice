@@ -1,3 +1,5 @@
+import javax.inject.Inject;
+
 /**
  * Real billing service implementation
  */
@@ -11,7 +13,9 @@ public class RealBillingService implements BillingService {
      * @param processor processor
      * @param transactionLog transactionLog
      */
-
+    // All implementations of BillingService is bound to RealBillingService. Either use @Inject annotation here
+    // or use @Provides @Singleton method in BillingModule
+    // @Inject
     public RealBillingService(CreditCardProcessor processor, TransactionLog transactionLog) {
         this.processor = processor;
         this.transactionLog = transactionLog;

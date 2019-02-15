@@ -20,6 +20,7 @@ public class GuiceInjectionTest {
 
     @Test
     public void TestCreditCardProcessorInstanceOfPaypalCCProcessor() {
+        // Create a CreditCardProcessor instance annotated with @Paypal
         CreditCardProcessor creditCardProcessor =
                 injector.getInstance(Key.get(CreditCardProcessor.class, Paypal.class));
 
@@ -41,10 +42,21 @@ public class GuiceInjectionTest {
         Assert.assertTrue(billingService.getProcessor() instanceof BankCreditCardProcessor);
     }
 
+    // We can instantiate an instance member(CreditCardProcessor or TransactionLog)
+    // of an object(BillingService) directly via Guice injector as in the next two test cases
+    @Test
+    public void TestCCProcessorHasBankCCProcessor() {
+        CreditCardProcessor ccP = injector.getInstance(CreditCardProcessor.class);
+
+        Assert.assertTrue(ccP instanceof BankCreditCardProcessor);
+    }
+
+
     @Test
     public void TestTransactionLogInstanceOfInMemory() {
         TransactionLog transactionLog = injector.getInstance(TransactionLog.class);
 
         Assert.assertTrue(transactionLog instanceof InMemoryTransactionLog);
     }
+
 }
